@@ -1,145 +1,153 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-import os
+<!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+<a id="readme-top"></a>
+<!--
+*** Thanks for checking out the Best-README-Template. If you have a suggestion
+*** that would make this better, please fork the repo and create a pull request
+*** or simply open an issue with the tag "enhancement".
+*** Don't forget to give the project a star!
+*** Thanks again! Now go create something AMAZING! :D
+-->
 
-# Get user input for month and year
-month = input("Enter the month (MM): ")
-year = input("Enter the year (YY): ")
 
-# Validate month and year format
-if len(month) != 2 or not month.isdigit() or len(year) != 2 or not year.isdigit():
-    print("Invalid input. Please enter the month and year in MM and YY format.")
-    exit()
 
-# Define input file name in MM-YY format and output file names
-input_file = f'{month}_{year}.csv'
-temp_output_file = f'{month}_{year}_temporary.csv'
-final_output_file = f'expenses_report_{month}_{year}.xlsx'
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
 
-print('This is a Bank-app processing the csv from your bank')
-print('...processing csv...')
 
-# Processing csv
-def process_csv(input_file, temp_output_file):
-    # Read the input CSV file
-    with open(input_file, 'r', encoding='utf-8') as read_file:
-        # Read the first line (header)
-        header = read_file.readline().strip()
-        # Replace semicolons with commas
-        header = header.replace(';', ',')
-        # Split the header into columns
-        columns = header.split(',')
-        # Remove columns at positions 2 and 4
-        columns = [col for i, col in enumerate(columns) if i not in [1, 3]]
-        # Join the columns back into a line
-        new_header = ','.join(columns)
 
-        # Process each line in the file
-        with open(temp_output_file, 'w', encoding='utf-8') as write_file:
-            write_file.write(new_header + '\n')  # Write the corrected header to the new file
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <a href="https://github.com/AnkiMonkey/Bank-Account-Balance">
+    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  </a>
 
-            for line in read_file:
-                # Remove quotation marks
-                line = line.replace('"', '')
-                # Split the line into columns
-                columns = line.strip().split(';')
-                # Replace commas with full stops in numeric values
-                for i, col in enumerate(columns):
-                    if i != 1 and i != 3:
-                        try:
-                            columns[i] = str(float(col.replace(',', '.')))
-                        except ValueError:
-                            pass
-                # Remove 'EUR' and dates (columns 1 and 3)
-                columns = [col.strip() if i not in [1, 3] else '' for i, col in enumerate(columns)]
-                # Remove empty values
-                columns = [col for col in columns if col]
-                # Join the columns back into a line
-                new_line = ','.join(columns)
-                # Write the modified line to the new file
-                if any(new_line):
-                    write_file.write(new_line + '\n')
+<h3 align="center">BankApp</h3>
 
-# Function to remove quotes
-def remove_quotes(input_file):
-    with open(input_file, 'r', encoding='utf-8') as file_in:
-        content = file_in.read()
-        content_without_quotes = content.replace('"', '')
-    
-    with open(input_file, 'w', encoding='utf-8') as file_out:
-        file_out.write(content_without_quotes)
+  <p align="center">
+    project_description
+    <br />
+    <a href="https://github.com/AnkiMonkey/Bank-Account-Balance"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/AnkiMonkey/Bank-Account-Balance">View Demo</a>
+    ·
+    <a href="https://github.com/AnkiMonkey/Bank-Account-Balance/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
+    ·
+    <a href="https://github.com/AnkiMonkey/Bank-Account-Balance/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
+  </p>
+</div>
 
-# Process the CSV file
-process_csv(input_file, temp_output_file)
 
-# Remove quotes from the processed CSV file
-remove_quotes(temp_output_file)
 
-print(f'The temporary file called {temp_output_file} was created')
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#roadmap">Roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-# Read the CSV file
-df = pd.read_csv(temp_output_file)
 
-# Initialize variables to store sums
-positive_sum_euros = 0
-negative_sum_euros = 0
 
-# Iterate through the volumes to calculate sums
-for volume in df['Objem']:
-    # Check if the volume is a string and contains a decimal point
-    if isinstance(volume, str) and '.' in volume:
-        euro, _ = volume.split('.')
-        euro = int(euro.replace(',', ''))  # Extract euros and convert to integer
-        if euro > 0:
-            positive_sum_euros += euro
-        elif euro < 0:
-            negative_sum_euros += euro
-    else:
-        if volume > 0:
-            positive_sum_euros += volume
-        elif volume < 0:
-            negative_sum_euros += volume
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-# Calculate total sum
-total_sum_euros = round(positive_sum_euros + negative_sum_euros, 2)
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-# Create a table
-table_data = {
-    'Category': ['Profits', 'Expenses', 'Total'],
-    'Sum (in Euros)': [positive_sum_euros, negative_sum_euros, total_sum_euros]
-}
-table_df = pd.DataFrame(table_data)
+Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `AnkiMonkey`, `Bank-Account-Balance`, `twitter_handle`, `timon-németh-6162b2a2`, `email_client`, `email`, `BankApp`, `project_description`
 
-# Save the processed data and table as Excel
-with pd.ExcelWriter(final_output_file) as writer:
-    df.to_excel(writer, sheet_name='Data', index=False)
-    table_df.to_excel(writer, sheet_name='Summary', index=False)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-print(f"Processed data saved as {final_output_file}")
 
-# Delete the temporary CSV file
-os.remove(temp_output_file)
-print(f"Temporary file {temp_output_file} has been deleted")
 
-# Print the table
-print("Table:")
-print(table_df)
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-# Create a bar graph for profits and total
-bars = plt.barh(['Profits', 'Expenses', 'Total'], [positive_sum_euros, negative_sum_euros, total_sum_euros], color=['green', 'red', 'lightblue'])
-plt.title(f'Expenses and Profits for {month}/{year}', fontsize=16, fontweight='bold')
-plt.xlabel('Sum (in Euros)')
 
-# Annotate the bars with their values
-for bar, value in zip(bars, [positive_sum_euros, negative_sum_euros, total_sum_euros]):
-    if value != 0:  # Only annotate bars with non-zero values
-        text_x = bar.get_width() - (0.05 * bar.get_width()) if value > 0 else bar.get_width() + (0.05 * bar.get_width())
-        if value > 0:
-            text_x = bar.get_width() - 10  # 10 units inside the bar for positive values
-        else:
-            text_x = bar.get_width() + 10  # 10 units inside the bar for negative values
-        plt.text(text_x, bar.get_y() + bar.get_height() / 2, str(round(value, 2)),
-                 ha='right' if value > 0 else 'left', va='center', color='black', fontsize=12, weight='bold')
 
-plt.gca().invert_yaxis()  # Invert the y-axis to display profits on top
-plt.show()
+<!-- GETTING STARTED -->
+## Getting Started
+
+This is an example of how you may give instructions on setting up your project locally.
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+* pandas
+  ```sh
+  pip install pandas
+
+
+<!-- USAGE EXAMPLES -->
+## Usage
+
+This app creates expenses reports based on a csv file generated from bank.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ROADMAP -->
+## Roadmap
+
+- [1] XLSL of expenses with item, price
+- [2] XLSL report of incomes/outcomes
+- [3] PNG report of incomes/outcomes
+
+
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Timon Nemeth -  timon.nemeth@gmail.com
+
+Project Link: [https://github.com/AnkiMonkey/Bank-Account-Balance](https://github.com/AnkiMonkey/Bank-Account-Balance)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/AnkiMonkey/Bank-Account-Balance.svg?style=for-the-badge
+[contributors-url]: https://github.com/AnkiMonkey/Bank-Account-Balance/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/AnkiMonkey/Bank-Account-Balance.svg?style=for-the-badge
+
