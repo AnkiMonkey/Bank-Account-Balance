@@ -21,7 +21,11 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-<p align="left">(<a href="#readme-top">back to top</a>)</p>
+BankApp is a Python script that processes a CSV file of bank transactions to generate detailed reports. It performs the following tasks:
+- Processes the CSV file, modifies its header, removes specific unwanted columns. 
+- Calculates sum totals for profits and expenses.
+- Generates a report with a table and a bar graph.
+- Saves the modified data to a new Excel file which is used to allocate expenses to categories.
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- GETTING STARTED -->
@@ -29,43 +33,75 @@
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 ### Prerequisites
+Ensure you have Python installed. You will also need the following Python libraries:
 
+- pandas
+- matplotlib
+- openpyxl
+
+You can install these using pip:
 * pandas
   ```sh
   pip install pandas
 
 * matplotlib
-    ```sh
-    pip install matplotlib
+  ```sh
+pip install matplotlib
 
 *os
-    ```sh
-    pip install os
+  ```sh
+pip install os
 
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-This app creates multiple expenses reports based on a csv file generated from bank.
-<p align="left">(<a href="#go-to-roadmap">see roadmap</a>)</p>
+Following reports are created
+- [1] XLSL of expenses with item, price
+- [2] XLSL report of incomes/outcomes
+- [3] PNG report of incomes/outcomes
+
+Modified clean data can be further allocated to categories.
+Example:
+Column C 'Type of Expense' 
+- [0] Incomes/Expenses for items WANTED
+- [1] Expenses for items NEEDED
+- [X] Different/to be checked
+
+<p align="left">(<a href="#go-to-roadmap">for details see roadmap</a>)</p>
 
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
 ## Roadmap
 <a id="go-to-roadmap"></a>
-<p align="left">(<a href="#readme-top">back to top</a>)</p>
-- [1] XLSL of expenses with item, price
-- [2] XLSL report of incomes/outcomes
-- [3] PNG report of incomes/outcomes
+
+1. **Prepare the Input CSV File:**
+   - Ensure your input CSV file is named `bank.csv`.
+   - Place `bank.csv` in the same directory as the script.
+
+2. **Run the Script:**
+   - Execute the script using the following command in your command line or terminal:
+     ```bash
+     python script_name.py
+     ```
+
+3. **Output:**
+   - The script creates a new CSV file named `bank_report_MM_YY.csv`.
+   - An Excel file named `expenses_report.xlsx` is also generated.
+   - Both files are saved in the same directory as the script.
+
+
 
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- TO-DO -->
 ## TO-DO
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
-<p align="left">(<a href="#readme-top">back to top</a>)</p>
+
+- create delete_multiple_columns.py and run it before main.py
+
 
 <!-- CONTACT -->
 ## Contact
