@@ -27,6 +27,11 @@ BankApp is a Python script that processes a CSV file of bank transactions to gen
 - Saves the modified data to a new Excel file which is used to allocate expenses to categories.
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
+<p align="center">
+  <img src="./mindmup.png" alt="Mindmup Diagram" width="500"/>
+</p>
+
+
 <!-- GETTING STARTED -->
 ## Getting Started
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
