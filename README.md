@@ -2,7 +2,7 @@
 
 <h3 align="center">Bank-Account-Balance</h3>
 <p align="center">
-  <img src="./1.png" alt="Mindmup Diagram" width="300"/>
+  <img src="./1.png" alt="Mindmup Diagram" width="500"/>
 </p>
 
 
