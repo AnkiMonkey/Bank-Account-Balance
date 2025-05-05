@@ -38,7 +38,6 @@ Ensure you have Python installed. You will also need the following Python librar
 - matplotlib
 - openpyxl
 
-You can install these
 
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
@@ -55,7 +54,7 @@ Example:
 Column C 'Type of Expense':
 - [0] Incomes/Expenses for items WANTED
 - [1] Expenses for items NEEDED
-- [X] Different/to be checked
+- [X] Different
 
 <p align="left">(<a href="#roadmap">for details see roadmap</a>)</p>
 
@@ -66,14 +65,11 @@ Column C 'Type of Expense':
 <a id="roadmap"></a>
 
 1. **Prepare the Input CSV File:**
-   - Ensure your input CSV file is named `bank.csv`.
-   - Place `bank.csv` in the same directory as the script.
+   - Ensure your input CSV file is in the same directory as the script.
+   - Make sure the script has only data in Column A, otherwise it will not work. 
 
 2. **Run the Script:**
-   - Execute the script using the following command in your command line or terminal:
-     ```bash
-     python script_name.py
-     ```
+
 
 3. **Output:**
    - The script creates a new CSV file named `bank_report_MM_YY.csv`.
@@ -87,6 +83,8 @@ Column C 'Type of Expense':
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 - Create `delete_multiple_columns.py` and run it before `main.py`.
+- Delete all columns but A
+- Did not work yet
 
 <!-- CONTACT -->
 ## Contact
