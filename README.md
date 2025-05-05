@@ -28,7 +28,7 @@ BankApp is a Python script that processes a CSV file of bank transactions to gen
 <p align="left">(<a href="#readme-top">back to top</a>)</p>
 
 <p align="center">
-  <img src="./mindmap.png" alt="Mindmup Diagram" width="500"/>
+  <img src="./1.png" alt="Mindmup Diagram" width="500"/>
 </p>
 
 
